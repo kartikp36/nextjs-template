@@ -14,6 +14,7 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
+  useColorMode,
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -22,9 +23,11 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons';
 
-export default function Navbar() {
-  const { isOpen, onToggle } = useDisclosure();
+import { BiSun, BiMoon } from 'react-icons/bi';
 
+export default function Navbar() {
+  const { isOpen, onToggle, onOpen } = useDisclosure();
+  const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Box>
       <Flex
@@ -72,6 +75,18 @@ export default function Navbar() {
           direction={'row'}
           spacing={6}
         >
+          <IconButton
+            backgroundColor={useColorModeValue('gray.900', 'gray.100')}
+            color={useColorModeValue('gray.100', 'gray.900')}
+            onClick={toggleColorMode}
+            icon={
+              colorMode === 'light' ? <Icon as={BiMoon} /> : <Icon as={BiSun} />
+            }
+            w={8}
+            h={8}
+            size="lg"
+            aria-label={'Toggle Dark mode'}
+          />
           <Button
             as={'a'}
             fontSize={'md'}
